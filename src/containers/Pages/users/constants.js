@@ -8,19 +8,19 @@ export const FETCH_ONE_SUCCESS = 'users/FETCH_ONE_SUCCESS';
 export const FETCH_ONE_FAILED = 'users/FETCH_ONE_FAILED';
 
 
-export const EDIT_USERS = 'users/EDIT_USERS';
-export const EDIT_USERS_SUCCESS = 'users/EDIT_USERS_SUCCESS';
-export const EDIT_USERS_FAILED = 'users/EDIT_USERS_FAILED';
+export const EDIT_USER = 'users/EDIT_USER';
+export const EDIT_USER_SUCCESS = 'users/EDIT_USER_SUCCESS';
+export const EDIT_USER_FAILED = 'users/EDIT_USER_FAILED';
 
 
 
-export const DELETE_USERS = 'users/DELETE_USERS';
-export const DELETE_USERS_SUCCESS = 'users/DELETE_USERS_SUCCESS';
-export const DELETE_USERS_FAILED = 'users/DELETE_USERS_FAILED';
+export const DELETE_USER = 'users/DELETE_USER';
+export const DELETE_USER_SUCCESS = 'users/DELETE_USER_SUCCESS';
+export const DELETE_USER_FAILED = 'users/DELETE_USER_FAILED';
 
 
-export const CREATE_USERS = 'users/CREATE_USERS';
-export const CREATE_USERS_SUCCESS = 'users/CREATE_USERS_SUCCESS';
-export const CREATE_USERS_FAILED = 'users/CREATE_USERS_FAILED';
+export const CREATE_USER = 'users/CREATE_USER';
+export const CREATE_USER_SUCCESS = 'users/CREATE_USER_SUCCESS';
+export const CREATE_USER_FAILED = 'users/CREATE_USER_FAILED';
 
 
