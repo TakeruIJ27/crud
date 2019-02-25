@@ -81,24 +81,6 @@ class DefaultLayout extends React.Component {
                 <Button minimal icon="home" text="Home" />
               </Link>
               <Navbar.Divider />
-              <Popover
-                content={(
-                  <Menu>
-                    <MenuItem text="Update Profile" />
-                    <MenuItem text="Change Password" />
-                    <MenuItem text="Delete Profile" intent="danger" />
-                  </Menu>
-                )}
-                position={Position.BOTTOM}
-                interactionKind="hover"
-              >
-                <Button minimal icon="person" text="Profile" />
-              </Popover>
-              <Navbar.Divider />
-              <Link to="/theme">
-                <Button minimal icon="tint" text="Theme" />
-              </Link>
-              <Navbar.Divider />
               <StyledSwitch
                 alignIndicator="center"
                 label="Dark Theme"
