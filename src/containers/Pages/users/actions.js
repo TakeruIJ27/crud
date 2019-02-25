@@ -24,21 +24,20 @@ CREATE_USER_SUCCESS,
 
 
 
-
-function fetchUsers() {
+export function fetchUsers() {
     return {
         type: FETCH_USERS
     }
 }
 
-function fetchUsersSuccess(data) {
+export function fetchUsersSuccess(data) {
     return {
         type: FETCH_USERS_SUCCESS,
         data
     }
 }
 
-function fetchUsersFailed(error) {
+export function fetchUsersFailed(error) {
     return {
         type: FETCH_USERS_FAILED,
         error
@@ -47,21 +46,21 @@ function fetchUsersFailed(error) {
 
 
 
-function fetchOne (id) {
+export function fetchOne (id) {
     return {
         type: FETCH_ONE,
         id
     }
 }
 
-function fetchOneSuccess (data) {
+export function fetchOneSuccess (data) {
     return {
         type: FETCH_ONE_SUCCESS,
         data
     }
 }
 
-function fetchOneFailed (error) {
+export function fetchOneFailed (error) {
     return{
         type: FETCH_ONE_FAILED,
         error
@@ -70,21 +69,21 @@ function fetchOneFailed (error) {
 
 
 
-function editUser (id){
+export function editUser (id){
     return{
         type: EDIT_USER,
         id
     }
 }
 
-function editUserSuccess(data) {
+export function editUserSuccess(data) {
     return{
         type: EDIT_USER_SUCCESS,
         data
     }
 }
 
-function editUserFailed(error) {
+export function editUserFailed(error) {
     return{
         type: EDIT_USER_FAILED,
         error
@@ -93,21 +92,21 @@ function editUserFailed(error) {
 
 
 
-function deleteUser(id) {
+export function deleteUser(id) {
     return {
         type: DELETE_USER,
         id
     }
 }
 
-function deleteUserSuccess(data) {
+export function deleteUserSuccess(data) {
     return {
         type: DELETE_USER_SUCCESS,
         data
     }
 }
 
-function deleteUserFailed(error) {
+export function deleteUserFailed(error) {
     return {
         type: DELETE_USER_FAILED,
         error
@@ -116,20 +115,20 @@ function deleteUserFailed(error) {
 
 
 
-function createUser() {
+export function createUser() {
     return {
         type: CREATE_USER
     }
 }
 
-function createUserSuccess(data) {
+export function createUserSuccess(data) {
     return {
         type: CREATE_USER_SUCCESS,
         data
     }
 }
 
-function createUserFailed(error) {
+export function createUserFailed(error) {
     return {
         type: CREATE_USER_FAILED,
         error
