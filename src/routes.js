@@ -10,23 +10,12 @@ const routes = [
     component: Loader(import('./containers/Pages/helloWorld')),
   },
   {
-    name: 'Pending',
-    path: '/pending',
+    name: 'Users',
+    path: '/users',
     exact: true,
-    component: Loader(import('./containers/Pages/pending')),
+    component: Loader(import('./containers/Pages/users')),
   },
-  {
-    name: 'Remitted',
-    path: '/remitted',
-    exact: true,
-    component: Loader(import('./containers/Pages/remitted')),
-  },
-  {
-    name: 'Exceptions',
-    path: '/exceptions',
-    exact: true,
-    component: Loader(import('./containers/Pages/exceptions')),
-  },
+
 ];
 
 export default routes;

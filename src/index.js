@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import 'normalize.css/normalize.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
+import 'react-table/react-table.css';
 
 import * as serviceWorker from './serviceWorker';
 import store from './store';

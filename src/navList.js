@@ -4,6 +4,12 @@ const navList = [
     path: '/dashboard',
     exact: true,
     icon: 'dashboard',
+  },
+  {
+    name: 'Users',
+    path: '/users',
+    exact: true,
+    icon: 'user',
   }
   
 ];

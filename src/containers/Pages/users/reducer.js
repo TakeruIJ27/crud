@@ -18,7 +18,7 @@ import {
 } from './constants';
 
 
-function users(state, action) {
+function users(state = {}, action) {
     switch(action.type) {
 
             case FETCH_USERS_SUCCESS:

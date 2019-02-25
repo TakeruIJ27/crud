@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1",
     "@babel/runtime": "^7.1.5",
     "@blueprintjs/core": "^3.9.0",
     "@blueprintjs/icons": "^3.3.0",
@@ -13,6 +10,7 @@
     "connected-react-router": "^5.0.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
+    "form-serialize": "^0.7.2",
     "history": "^4.7.2",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.6.2",

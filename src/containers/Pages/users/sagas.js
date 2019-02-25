@@ -3,7 +3,9 @@ import {
     put,
     call,
     
+    
 } from 'redux-saga/effects';
+import apiCall from '../../../utils/ApiService';
 
 
 import {
@@ -35,8 +37,8 @@ import {
 function* fetchUsersWorker(){
 
         try {
-            const response = yield call('GET', '/users');
-            yield put(fetchUsersSuccess(response.data));
+            const response = yield call(apiCall, 'GET', '/users');
+            yield put(fetchUsersSuccess(response));
         } catch(err){
             yield put(fetchUsersFailed(err));
         }
@@ -46,18 +48,18 @@ function* fetchUsersWorker(){
 function* fetchOneWorker(action){
         const id = action.id;
         try{
-            const response = yield call('GET', '/users?_id=' + id);
-            yield put(fetchOneSuccess(response.data));
+            const response = yield call(apiCall, 'GET', '/users?_id=' + id);
+            yield put(fetchOneSuccess(response));
         } catch(err){
             yield put(fetchOneFailed(err));
         }
 }
 
-function* editUserWorker() {
+function* editUserWorker(action) {
     const id = action.id;
         try{
-            const response = yield call('PUT', '/users?_id=' + id);
-            yield put(editUserSuccess(response.data));
+            const response = yield call(apiCall, 'PUT', '/users?_id=' + id);
+            yield put(editUserSuccess(response));
         } catch(err){
             yield put(editUserFailed(err));
         }
@@ -66,8 +68,8 @@ function* editUserWorker() {
 function* deleteUserWorker(action) {
     const id = action.id;
     try {
-        const response = yield call('DELETE', '/users?_id=' + id);
-        yield put(deleteUserSuccess(response.data));
+        const response = yield call(apiCall, 'DELETE', '/users?_id=' + id);
+        yield put(deleteUserSuccess(response));
     } catch (err) {
         yield put(deleteUserFailed(err));
     }
@@ -75,17 +77,17 @@ function* deleteUserWorker(action) {
 
 function* createUserWorker() {
     try{
-        const response = yield call('POST', 'users');
-        yield put(createUserSuccess(response.data));
+        const response = yield call(apiCall, 'POST', 'users');
+        yield put(createUserSuccess(response));
     }catch(err){
         yield put(createUserFailed(err));
     }
 }
-
-export default function* usersWatcher(){
+ function* usersWatcher(){
     yield takeLatest(FETCH_USERS, fetchUsersWorker);
     yield takeLatest(FETCH_ONE, fetchOneWorker);
     yield takeLatest(EDIT_USER, editUserWorker);
     yield takeLatest(DELETE_USER, deleteUserWorker);
     yield takeLatest(CREATE_USER, createUserWorker);
 }
+ export default usersWatcher;
