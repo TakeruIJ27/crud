@@ -1,0 +1,8 @@
+# NODE
+node_modules/
+
+# INTERNALS
+scripts
+config
+build
+public
