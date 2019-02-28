@@ -16,5 +16,5 @@ export const getPaths = (pathname) => {
 
 export const findRouteName = (routes, url) => {
   const aroute = routes.find(route => matchPath(url, { path: route.path, exact: route.exact }));
-  return (aroute && aroute.name) ? aroute.name : null;
+  return (aroute && aroute.props.name) ? aroute.props.name : null; // aroute.props new code
 };

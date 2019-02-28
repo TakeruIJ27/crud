@@ -5,78 +5,85 @@ import {
     InputGroup,
     RadioGroup,
     Radio,
-    Buton
-}from '@blueprintjs/core';
+    Button
+}from '@blueprintjs/core'; //new code
 
-export default  function UsersForm (props) {
+export default function UsersForm (props) {
     
-    const submitHandler = form => { //galing sa return <form>
-        form.preventDefault(); //prevents the default behavior of form
+    const submitHandler = event => { //galing sa return <form> -> form to event (change) = new code
+        event.preventDefault(); //prevents the default behavior of form
 
-        const serializedValue = serialize(form, {hash: true}); //
+        const serializedValue = serialize(event.target, {hash: true}); //
         props.submit(serializedValue);
     }
 
     return(
         <form onSubmit={submitHandler}>
+
             {/* NAME */}
-            <FormGroup label = "Full Name" labelFor="fullname">
-                <InputGroup 
-                name = "name" 
-                value={props.name}
-                    id="name"
-                    placeholder="Takeru Yuusuke" />
+            <FormGroup label="Full Name" labelFor="fullName">
+                <InputGroup
+                    name="name"
+                    defaultValue={props.data.name} //new code
+                    id="fullName"
+                    placeholder="John Doe" />
             </FormGroup>
+
             {/* EMAIL */}
             <FormGroup label="E-Mail" labelFor="email">
                 <InputGroup 
                     name="email"
-                    value={props.email}
+                    defaultValue={props.data.email}
                     id="email"
                     placeholder="Yuusuke_takeru98@example.com" />
             </FormGroup>
+
             {/* AGE */}
             <FormGroup 
                 label="Age" labelFor="age">
                 <InputGroup
                     name="age"
-                    value={props.age}
+                    defaultValue={props.data.age}
                     id="age"
-                    placeholder="Yuusuke_takeru98@example.com" />
+                    placeholder="20" />
             </FormGroup>
+
             {/* GENDER */}
             <FormGroup label="Gender" labelFor="gender">
-               <RadioGroup
+               <RadioGroup inline
+                    onChange={() => {}}
                     id = "gender"
-                    selectedValue={props.gender}
+                    selectedDefaultValue={props.data.gender}
                     >
-                    <Radio label= "Male" value="male"/>
-                    <Radio label= "Female" value="female"/>
-                    </RadioGroup>
+                    <Radio label= "Male" defaultValue="male"/>
+                    <Radio label= "Female" defaultValue="female"/>
+                </RadioGroup>
             </FormGroup>
+
             {/* COMPANY */}
             <FormGroup label="Company" labelFor="company">
                 <InputGroup 
-                    value = {props.company}
+                    value = {props.data.company}
                     id="company"
                     placeholder = "Code Disrupters Inc." />
             </FormGroup>
+
             {/* ADDRESS */}
             <FormGroup label="Address" labelFor="address">
                 <InputGroup 
-                    value = {props.address}
+                    defaultValue = {props.data.address}
                     id = "address"
-                    placeholder= "Akihabara, Tokyo, Japan" 
-                    />
+                    placeholder= "Akihabara, Tokyo, Japan" />
             </FormGroup>
+
             {/* ABOUT */}
             <FormGroup label="About" labelFor="about">
                 <InputGroup
-                    value={props.about}
+                    defaultValue={props.data.about}
                     id="about"
-                    placeholder="Otaku, Otamegane"
-                />
+                    placeholder="Ryūnosuke wa kochira" />
             </FormGroup>
+
             <Button text="Submit" intent="success" type="submit" />
         </form>
     )

@@ -23,4 +23,4 @@ export const CREATE_USER = 'users/CREATE_USER';
 export const CREATE_USER_SUCCESS = 'users/CREATE_USER_SUCCESS';
 export const CREATE_USER_FAILED = 'users/CREATE_USER_FAILED';
 
-
+export const CLEAR_USER = 'users/CLEAR_USER';

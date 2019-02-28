@@ -75,7 +75,7 @@ class DefaultLayout extends React.Component {
         <header>
           <Navbar>
             <Navbar.Group align={Alignment.LEFT}>
-              <Navbar.Heading>Codedisruptors Inc.</Navbar.Heading>
+              <Navbar.Heading>Code Disruptors Inc. (龍之介.2̵̜̪̃́̐7̶̲̥̄͒̍̇̃̀̄̐)</Navbar.Heading>
               <Navbar.Divider />
               <Link to="/dashboard">
                 <Button minimal icon="home" text="Home" />

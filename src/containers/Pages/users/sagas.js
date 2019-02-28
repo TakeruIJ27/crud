@@ -1,9 +1,7 @@
 import {
     takeLatest,
     put,
-    call,
-    
-    
+    call
 } from 'redux-saga/effects';
 import apiCall from '../../../utils/ApiService';
 
@@ -48,7 +46,7 @@ function* fetchUsersWorker(){
 function* fetchOneWorker(action){
         const id = action.id;
         try{
-            const response = yield call(apiCall, 'GET', '/users?_id=' + id);
+            const response = yield call(apiCall, 'GET', '/users/' + id); //new code
             yield put(fetchOneSuccess(response));
         } catch(err){
             yield put(fetchOneFailed(err));
@@ -58,7 +56,9 @@ function* fetchOneWorker(action){
 function* editUserWorker(action) {
     const id = action.id;
         try{
-            const response = yield call(apiCall, 'PUT', '/users?_id=' + id);
+            const response = yield call(apiCall, 'PUT', '/users/' + id, {
+                data: action.data //new code
+            });
             yield put(editUserSuccess(response));
         } catch(err){
             yield put(editUserFailed(err));
@@ -68,7 +68,7 @@ function* editUserWorker(action) {
 function* deleteUserWorker(action) {
     const id = action.id;
     try {
-        const response = yield call(apiCall, 'DELETE', '/users?_id=' + id);
+        const response = yield call(apiCall, 'DELETE', '/users/' + id); //new code
         yield put(deleteUserSuccess(response));
     } catch (err) {
         yield put(deleteUserFailed(err));
