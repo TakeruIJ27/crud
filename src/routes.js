@@ -4,23 +4,27 @@ import { Loader } from './components/Abstracts';
 // put your routes inside this array.
 const routes = [
   {
-    name: 'Dashboard',
     path: '/dashboard',
     exact: true,
     component: Loader(import('./containers/Pages/helloWorld')),
+    props: {
+      name: 'Dashboard',
+    }
   },
   {
-    name: 'Users',
     path: '/users',
     exact: true,
     component: Loader(import('./containers/Pages/users')),
+    props: {
+      name: 'Users',
+    }
   },
   {
     path: '/users/create', //new code
     exact: true,
     component: Loader(import('./containers/Pages/users/usersForm')),
     props: {
-      name: 'Users From/ Create',
+      name: 'Users Form/ Create',
       formState: 'create',
     }
   },
@@ -29,7 +33,7 @@ const routes = [
     exact: true,
     component: Loader(import('./containers/Pages/users/usersForm')),
     props: {
-      name: 'Users From/ Edit',
+      name: 'Users Form/ Edit',
       formState: 'edit',
     }
   },

@@ -1,28 +1,43 @@
 import React from 'react';
+import styled from 'styled-components'; //new code 03/01/19
 import { connect } from 'react-redux';
 import { Link, Route } from 'react-router-dom';
 import { 
     ButtonGroup,
     Button,
     Divider,
-    Alert
+    Alert,
+    MenuItem
 } from '@blueprintjs/core';
 
+import { Suggest } from '@blueprintjs/select'; //new code 03/01/19
+
 import ReactTable from 'react-table';
+
 import {
     fetchUsers,
     deleteUser,
+    openDeleteModal,
+    closeDeleteModal,
+    searchUser
 } from './actions';
 
+const TableHead = styled.div `
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+`; //new code 03/01/19
+
 class Users extends React.Component {
-    constructor(props){
+
+   /* constructor(props){
         super(props);
 
             this.state ={ //new code
                 isDeleteModalOpen: false,
-                toDeleteId: null //new code 02/27/19
+                toDeleteId: null, //new code 02/27/19
             };
-    }
+    } */ //code changes 02/28/19
    
     componentDidMount() {
             this.props.fetchUsers();
@@ -41,7 +56,6 @@ class Users extends React.Component {
         }, {
             Header: 'E-Mail',
             accessor: 'email' // Custom value accessors!
-            
         }, 
         {
             Header: 'Age',
@@ -50,8 +64,7 @@ class Users extends React.Component {
         }, 
         {
                 Header: 'Company',
-                accessor: 'company' // Custom value accessors!
-                
+                accessor: 'company' // Custom value accessors!  
         },
         {
                 Header: 'Address',
@@ -75,7 +88,7 @@ class Users extends React.Component {
                                     <Button
                                     icon ='delete'
                                     intent='danger'
-                                    onClick={() => this.setState({isDeleteModalOpen:true, toDeleteId: id})} />
+                                    onClick={() => this.props.openDeleteModal(id)} />
                                 </div>
                                 </ButtonGroup>
 
@@ -85,18 +98,40 @@ class Users extends React.Component {
 
         return (
         <div>
+            <TableHead> 
+                <Suggest 
+                    items={this.props.data}
+                        itemRenderer={(item, itemProps) => (
+                            <MenuItem 
+                                key={item.id}
+                                onClick={itemProps.handleClick}
+                                text={itemProps.index + 1 + " " + item.name}
+                                active={itemProps.modifiers.active} /> //New code 03/01/19 for search bar
+                        )}
+                        inputValueRenderer={value => value.name}
+                        onItemSelect={(item => this.props.searchUser(item.name))}
+                        onQueryChange={this.props.searchUser}
+                        popoverProps={{minimal:true}} />
+            
+
+            <Link to='users/create'> 
+            <Button text="Add new User" intent="success" icon="plus"/>
+            <hr />
+            </Link>
+                </TableHead>
+
         <ReactTable
             data={this.props.data}
             columns={columns} />
             
             
-        <Alert  // new code 02/26/19
+            <Alert  // new code 02/26/19 updated 02/28/19
             intent='danger'
             cancelButtonText='No'
             confirmButtonText='Yes'
-            isOpen={this.state.isDeleteModalOpen}
-            onConfirm={() => this.props.deleteUser(this.state.toDeleteId)} //new code 02/27/19
-            onCancel={() => this.setState({isDeleteModalOpen:false})}>
+            isOpen={this.props.toDelete.isModalOpen} //new code 02/28/19
+            onConfirm={() => this.props.deleteUser(this.props.toDelete.id)} //new code 02/27/19 updated 02/28/19
+            onCancel={this.props.closeDeleteModal}> 
             <p> Are You Sure You Want To Delete This Record? </p>
                 </Alert>
             </div>
@@ -107,7 +142,8 @@ class Users extends React.Component {
 
 
 const mapStateToProps = state => ({
-    data: state.users.data //data as props for users
+    data: state.users.data, //data as props for users
+    toDelete: state.users.toDelete //new code 02/28/19
 });
 
-export default connect(mapStateToProps, {fetchUsers, deleteUser})(Users); //new code 02/27/19 (deleteUser)
+export default connect(mapStateToProps, { fetchUsers, deleteUser, openDeleteModal, closeDeleteModal, searchUser })(Users); //new code 02/27/19 (deleteUser) updated 02/28/19

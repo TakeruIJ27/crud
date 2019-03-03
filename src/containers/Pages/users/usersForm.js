@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux'; //new code
 import {
     fetchOne,
-    deleteUser,
     editUser,
-    createUser
+    createUser,
+    clearUser,
 } from './actions';
 
 import UsersForm from '../../../components/Base/UsersForm';
@@ -25,8 +25,8 @@ class Form extends React.Component{
             this.props.fetchOne(id);
         }
 
-        componentWillMount(){ //new code
-            this.props.deleteUser();
+        componentWillUnmount(){
+            this.props.clearUser();
         }
 
         editUser(updateData){ //new code
@@ -38,10 +38,17 @@ class Form extends React.Component{
             this.props.createUser(newEntry);
         }
 
+    handleChange(e) { //new code 02/28/19
+            this.setState({
+                ...this.state,
+                [e.target.name]: e.target.value
+            });
+        }
+
 
     render(){ //new code
 
-        console.log(this.props);
+        //console.log(this.props);
         let formHandler = () => {};
 
         if(this.props.formState === 'edit'){
@@ -51,7 +58,16 @@ class Form extends React.Component{
             formHandler = this.createUser;
         }    
 
-        return <UsersForm submit={formHandler} data={this.props.data} />
+        const data = {  //new code 02/28/19
+            ...this.props.data,
+            ...this.state
+        }
+
+        return <UsersForm
+            formState={this.props.formState} //new code 02/28/19
+            handleChange={this.handleChange} //new code 02/28/19
+            submit={formHandler} 
+            data={data}  />
     }
 }
 
@@ -59,7 +75,6 @@ class Form extends React.Component{
         data: state.users.user
     });
 
-    const mapDispatchToProps = dispatch => ({ //new code
-        fetchOne, deleteUser, editUser, createUser}, dispatch);
+    const mapDispatchToProps = dispatch => bindActionCreators({fetchOne, clearUser, editUser, createUser}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

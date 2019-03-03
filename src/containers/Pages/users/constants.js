@@ -19,8 +19,16 @@ export const DELETE_USER_SUCCESS = 'users/DELETE_USER_SUCCESS';
 export const DELETE_USER_FAILED = 'users/DELETE_USER_FAILED';
 
 
+export const OPEN_DELETE_MODAL = 'users/OPEN_DELETE_MODAL'; //new code 02/28/19
+export const CLOSE_DELETE_MODAL = 'users/CLOSE_DELETE_MODAL'; //new code 02/28/19
+
+
 export const CREATE_USER = 'users/CREATE_USER';
 export const CREATE_USER_SUCCESS = 'users/CREATE_USER_SUCCESS';
 export const CREATE_USER_FAILED = 'users/CREATE_USER_FAILED';
 
 export const CLEAR_USER = 'users/CLEAR_USER';
+
+export const SEARCH_USER = 'users/SEARCH_USER'; //new code 03/01/19
+export const SEARCH_USER_SUCCESS = 'users/SEARCH_USER_SUCCESS'; //new code 03/01/19
+export const SEARCH_USER_FAILED = 'users/SEARCH_USER_FAILED'; //new code 03/01/19

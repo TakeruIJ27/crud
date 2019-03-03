@@ -9,14 +9,13 @@ const renderRoutes = routes => routes.map(
   ({
     component: Component,
     path,
-    props, //new
-    name,
+    props,
     ...rest
   }) => (
     <Route
       key={path}
       path={path}
-      render={childrenProps => <Component {...props} {...childrenProps} />} //props under render/component new code
+      render={childrenProps => <Component {...props} {...childrenProps} />}
       {...rest}
     />
   ),

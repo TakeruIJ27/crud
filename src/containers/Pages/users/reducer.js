@@ -12,10 +12,16 @@ import {
     DELETE_USER_FAILED,
     DELETE_USER_SUCCESS,
 
+    OPEN_DELETE_MODAL,
+    CLOSE_DELETE_MODAL,
+
     CREATE_USER_FAILED,
     CREATE_USER_SUCCESS,
 
-    CLEAR_USER
+    CLEAR_USER,
+
+    SEARCH_USER_SUCCESS,
+    SEARCH_USER_FAILED
 } from './constants';
 
 const initState={ //new code
@@ -28,7 +34,11 @@ const initState={ //new code
         gender:'',
         company:''
     },
-    data:[]
+    data:[],
+    toDelete:{
+        id:'',
+        isModalOpen:false
+    }
 }
 
 
@@ -74,6 +84,23 @@ function users(state = initState, action) {
                 };
 
 
+            case OPEN_DELETE_MODAL:  //new code 02/28/19
+                return{
+                    ...state,
+                    toDelete:{
+                        id: action.id,
+                        isModalOpen: true
+                    }
+                }
+
+
+            case CLOSE_DELETE_MODAL:  //new code 02/28/19
+                return{
+                    ...state,
+                    toDelete: initState.toDelete
+                }
+
+
             case CREATE_USER_SUCCESS:
                 return {
                     ...state,
@@ -90,13 +117,16 @@ function users(state = initState, action) {
             case DELETE_USER_SUCCESS:
                 return {
                     ...state,
-                    user: action.data
+                    user: action.data,
+                    data: state.data.filter(list => list.id !== state.toDelete.id), //new code 03/01/19
+                    toDelete: initState.toDelete //new code 03/01/19
                 };
 
             case DELETE_USER_FAILED:
                 return {
                     ...state,
-                    error: action.error
+                    error: action.error,
+                    toDelete: initState.toDelete //new code 03/01/19
                 };
 
             case CLEAR_USER: //new code 02/27/19
@@ -104,6 +134,18 @@ function users(state = initState, action) {
                     ...state,
                     user: initState.user
                 };
+
+            case SEARCH_USER_SUCCESS:
+                return{
+                    ...state,
+                    data: action.data
+                }
+            
+            case SEARCH_USER_FAILED:
+                return{
+                    ...state,
+                    error: action.err
+                }
 
             default:
                 return state;

@@ -17,6 +17,8 @@ export default function UsersForm (props) {
         props.submit(serializedValue);
     }
 
+    console.log("THIS IS THE FORMSTATE: ", props.formState); //new code 02/28/19
+
     return(
         <form onSubmit={submitHandler}>
 
@@ -24,6 +26,7 @@ export default function UsersForm (props) {
             <FormGroup label="Full Name" labelFor="fullName">
                 <InputGroup
                     name="name"
+                    disabled={props.formState === "view"} //new code 02/28/19
                     defaultValue={props.data.name} //new code
                     id="fullName"
                     placeholder="John Doe" />
@@ -33,8 +36,10 @@ export default function UsersForm (props) {
             <FormGroup label="E-Mail" labelFor="email">
                 <InputGroup 
                     name="email"
-                    defaultValue={props.data.email}
+                    disabled={props.formState === "view"} //new code 02/28/19
+                    defaultValue={props.data.email} 
                     id="email"
+                    type="email"
                     placeholder="Yuusuke_takeru98@example.com" />
             </FormGroup>
 
@@ -43,27 +48,32 @@ export default function UsersForm (props) {
                 label="Age" labelFor="age">
                 <InputGroup
                     name="age"
+                    diabled={props.fromState === "view"} //new code 02/28/19
                     defaultValue={props.data.age}
                     id="age"
+                    type="number"
                     placeholder="20" />
             </FormGroup>
 
             {/* GENDER */}
             <FormGroup label="Gender" labelFor="gender">
                <RadioGroup inline
-                    onChange={() => {}}
+                    disabled={props.formState === "view"}
+                    name = "gender"
+                    onChange={props.handleChange}
                     id = "gender"
-                    selectedDefaultValue={props.data.gender}
-                    >
-                    <Radio label= "Male" defaultValue="male"/>
-                    <Radio label= "Female" defaultValue="female"/>
+                    selectedValue={props.data.gender}>
+                    <Radio label= "Male" value="male"/>
+                    <Radio label= "Female" value="female"/>
                 </RadioGroup>
             </FormGroup>
 
             {/* COMPANY */}
             <FormGroup label="Company" labelFor="company">
-                <InputGroup 
-                    value = {props.data.company}
+                <InputGroup
+                    disabled={props.formState === "view"} //new code 02/28/19
+                    name = 'company' 
+                    defaultValue = {props.data.company}
                     id="company"
                     placeholder = "Code Disrupters Inc." />
             </FormGroup>
@@ -71,6 +81,8 @@ export default function UsersForm (props) {
             {/* ADDRESS */}
             <FormGroup label="Address" labelFor="address">
                 <InputGroup 
+                    disabled={props.formState === "view"} //new code 02/28/19
+                    name = 'address'
                     defaultValue = {props.data.address}
                     id = "address"
                     placeholder= "Akihabara, Tokyo, Japan" />
@@ -79,12 +91,14 @@ export default function UsersForm (props) {
             {/* ABOUT */}
             <FormGroup label="About" labelFor="about">
                 <InputGroup
+                    disabled={props.formState === 'view'} //new code 02/28/19
+                    name = 'about'
                     defaultValue={props.data.about}
                     id="about"
                     placeholder="Ryūnosuke wa kochira" />
             </FormGroup>
 
-            <Button text="Submit" intent="success" type="submit" />
+            <Button disabled={props.formSate === 'view'} text="Submit" intent="success" type="Submit" /> 
         </form>
     )
 }

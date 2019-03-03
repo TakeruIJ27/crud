@@ -3,8 +3,9 @@ import {
     put,
     call
 } from 'redux-saga/effects';
-import apiCall from '../../../utils/ApiService';
 
+import {Toast} from '../../../components/Base';
+import apiCall from '../../../utils/ApiService';
 
 import {
 
@@ -12,7 +13,8 @@ import {
     FETCH_ONE,
     EDIT_USER,
     DELETE_USER,
-    CREATE_USER
+    CREATE_USER,
+    SEARCH_USER
 
 } from './constants';
 
@@ -27,7 +29,9 @@ import {
     deleteUserSuccess,
     deleteUserFailed,
     createUserSuccess,
-    createUserFailed
+    createUserFailed,
+    searchUserSuccess,
+    searchUserFailed
 
 } from './actions';
 
@@ -60,8 +64,10 @@ function* editUserWorker(action) {
                 data: action.data //new code
             });
             yield put(editUserSuccess(response));
+            yield Toast.show({ message:"Yatta desu!! (Successfully Edited!)" + response.name, intent:'success'});//new code 02/28/19
         } catch(err){
             yield put(editUserFailed(err));
+            yield Toast.show({ message: ">_< Failed to Edit!!", intent: 'danger' });//new code 02/28/19
         }
 }
 
@@ -70,24 +76,39 @@ function* deleteUserWorker(action) {
     try {
         const response = yield call(apiCall, 'DELETE', '/users/' + id); //new code
         yield put(deleteUserSuccess(response));
+        yield Toast.show({ message: "Yatta desu!! (Success!)", intent: 'success' });//new code 02/28/19
     } catch (err) {
         yield put(deleteUserFailed(err));
+        yield Toast.show({ message: ">_< Failed to Delete!!", intent: 'danger' });//new code 02/28/19
     }
 }
 
-function* createUserWorker() {
+function* createUserWorker(action) {
     try{
-        const response = yield call(apiCall, 'POST', 'users');
+        const response = yield call(apiCall, 'POST', '/users',{
+            data: action.data
+        });
         yield put(createUserSuccess(response));
     }catch(err){
         yield put(createUserFailed(err));
     }
 }
+
+function* searchUserWorker(action){
+    try{
+        const response = yield call(apiCall, 'GET', 'users?=q' + action.query);
+        yield put(searchUserSuccess(response));
+    }catch(err){
+        yield put(searchUserFailed(err));
+    }
+}
+
  function* usersWatcher(){
     yield takeLatest(FETCH_USERS, fetchUsersWorker);
     yield takeLatest(FETCH_ONE, fetchOneWorker);
     yield takeLatest(EDIT_USER, editUserWorker);
     yield takeLatest(DELETE_USER, deleteUserWorker);
     yield takeLatest(CREATE_USER, createUserWorker);
+    yield takeLatest(SEARCH_USER, searchUserWorker);
 }
  export default usersWatcher;

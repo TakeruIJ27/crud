@@ -16,11 +16,18 @@ import {
     DELETE_USER_FAILED,
     DELETE_USER_SUCCESS,
 
+    OPEN_DELETE_MODAL,
+    CLOSE_DELETE_MODAL,
+
     CREATE_USER,
     CREATE_USER_FAILED,
     CREATE_USER_SUCCESS,
 
-    CLEAR_USER
+    CLEAR_USER,
+
+    SEARCH_USER,
+    SEARCH_USER_SUCCESS,
+    SEARCH_USER_FAILED
 } from './constants';
 
 
@@ -116,10 +123,24 @@ export function deleteUserFailed(error) {
 }
 
 
+export function openDeleteModal(id){
+    return{
+        typr: OPEN_DELETE_MODAL,
+        id
+    }
+}
 
-export function createUser() {
+export function closeDeleteModal(){
+    return{
+        type: CLOSE_DELETE_MODAL
+    }
+}
+
+
+export function createUser(data) {
     return {
-        type: CREATE_USER
+        type: CREATE_USER,
+        data
     }
 }
 
@@ -140,5 +161,26 @@ export function createUserFailed(error) {
 export function clearUser(){
     return{
         type: CLEAR_USER
+    }
+}
+
+export function searchUser(query) { //new code 03/01/19
+    return{
+        type: SEARCH_USER,
+        query
+    }
+}
+
+export function searchUserSuccess(data) { //new code 03/01/19
+    return{
+        type: SEARCH_USER_SUCCESS,
+        data
+    }
+}
+
+export function searchUserFailed(err) { //new code 03/01/19
+    return{
+        type: SEARCH_USER_FAILED,
+        err
     }
 }
