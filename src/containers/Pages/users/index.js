@@ -7,10 +7,12 @@ import {
     Button,
     Divider,
     Alert,
-    MenuItem
+    MenuItem,
 } from '@blueprintjs/core';
 
 import { Suggest } from '@blueprintjs/select'; //new code 03/01/19
+
+//import {Col} from 'reactstrap'; //experiment
 
 import ReactTable from 'react-table';
 
@@ -19,13 +21,25 @@ import {
     deleteUser,
     openDeleteModal,
     closeDeleteModal,
-    searchUser
+    searchUser,
+    filterItems
 } from './actions';
+
+import {FilterForm} from '../../../components/Base/';
 
 const TableHead = styled.div `
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: flex-start;
     margin: 10px 0;
+
+    & >*:nth-child(2){
+        margin-left: 20px;
+    }
+
+    & > *:last-child {
+        margin-left: auto;
+    }
 `; //new code 03/01/19
 
 class Users extends React.Component {
@@ -41,15 +55,17 @@ class Users extends React.Component {
    
     componentDidMount() {
             this.props.fetchUsers();
-
     }
+
     
     render () {
         console.log("LIST OF DATA: ",this.props.data);
 
+        const {filters} = this.props; //access ng filters
+
         const columns = [{
             Header: 'Identifier',
-            accessor: '_id' // String-based value accessors!
+            accessor: 'id' // String-based value accessors!
         }, {
             Header: 'Name',
             accessor: 'name', //accessor ay galing sa data na pinapasa
@@ -66,6 +82,11 @@ class Users extends React.Component {
                 Header: 'Company',
                 accessor: 'company' // Custom value accessors!  
         },
+            {
+                Header: 'Gender',
+                accessor: 'gender', // Custom value accessors!  
+                Cell: props => <span>{props.value.split("")[0].toUpperCase() + props.value.substr(1, props.value.length)}</span>
+            },
         {
                 Header: 'Address',
                 accessor: 'address'
@@ -111,18 +132,26 @@ class Users extends React.Component {
                         inputValueRenderer={value => value.name}
                         onItemSelect={(item => this.props.searchUser(item.name))}
                         onQueryChange={this.props.searchUser}
-                        popoverProps={{minimal:true}} />
-            
+                        popoverProps={{minimal:true}} 
+                        />
 
-            <Link to='users/create'> 
-            <Button text="Add new User" intent="success" icon="plus"/>
-            <hr />
-            </Link>
+                    <Link to='users/filter'>
+                        <Button text='Filter' icon="filter" intent="primary"/>
+                    </Link>
+
+                    <Link to='users/create'>
+                        <Button text="Add new User" intent="success" icon="plus" />
+                    </Link>
                 </TableHead>
 
-        <ReactTable
-            data={this.props.data}
-            columns={columns} />
+                <div className="bp3-card">
+                    <FilterForm form={filters} handlerChange={this.props.filterItems} /> 
+                </div>
+
+
+        <ReactTable data={this.props.data} 
+                    columns={columns}
+                    />
             
             
             <Alert  // new code 02/26/19 updated 02/28/19
@@ -143,7 +172,8 @@ class Users extends React.Component {
 
 const mapStateToProps = state => ({
     data: state.users.data, //data as props for users
-    toDelete: state.users.toDelete //new code 02/28/19
+    toDelete: state.users.toDelete, //new code 02/28/19
+    filters: state.users.filters // from store new code 03/06/19
 });
 
-export default connect(mapStateToProps, { fetchUsers, deleteUser, openDeleteModal, closeDeleteModal, searchUser })(Users); //new code 02/27/19 (deleteUser) updated 02/28/19
+export default connect(mapStateToProps, { fetchUsers, deleteUser, openDeleteModal, closeDeleteModal, searchUser, filterItems })(Users); //new code 02/27/19 (deleteUser) updated 02/28/19

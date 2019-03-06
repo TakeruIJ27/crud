@@ -26,10 +26,10 @@ export default function UsersForm (props) {
             <FormGroup label="Full Name" labelFor="fullName">
                 <InputGroup
                     name="name"
-                    disabled={props.formState === "view"} //new code 02/28/19
+                    disabled={props.formState === "view"} //new code 02/28/19 
                     defaultValue={props.data.name} //new code
                     id="fullName"
-                    placeholder="John Doe" />
+                    placeholder="Ryuunosuke Takeru" />
             </FormGroup>
 
             {/* EMAIL */}
@@ -61,8 +61,10 @@ export default function UsersForm (props) {
                     disabled={props.formState === "view"}
                     name = "gender"
                     onChange={props.handleChange}
+                    //onchange={() => {}}
                     id = "gender"
-                    selectedValue={props.data.gender}>
+                    selectedValue={props.data.gender}
+                    >
                     <Radio label= "Male" value="male"/>
                     <Radio label= "Female" value="female"/>
                 </RadioGroup>

@@ -8,7 +8,7 @@ import {
     clearUser,
 } from './actions';
 
-import UsersForm from '../../../components/Base/UsersForm';
+import FilterForm from '../../../components/Base/FilterForm';
 
 
 class Form extends React.Component{
@@ -16,8 +16,8 @@ class Form extends React.Component{
         super(props);
 
         this.editUser=this.editUser.bind(this); //new
-        this.createUser=this.createUser.bind(this);
-        this.handleChange = this.handleChange.bind(this); //new, para mapunta or maaccess sa redux
+        this.createUser=this.createUser.bind(this); //new
+        this.handleChange = this.handleChange.bind(this); //new
     }
 
         componentDidMount(){ //new code
@@ -64,7 +64,7 @@ class Form extends React.Component{
             ...this.state
         }
 
-        return <UsersForm
+        return <FilterForm
             formState={this.props.formState} //new code 02/28/19
             handleChange={this.handleChange} //new code 02/28/19
             submit={formHandler} 

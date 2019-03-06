@@ -19,6 +19,10 @@ import {
     OPEN_DELETE_MODAL,
     CLOSE_DELETE_MODAL,
 
+    FILTER_ITEMS,
+    FILTER_ITEMS_SUCCESS,
+    FILTER_ITEMS_FAILED,
+
     CREATE_USER,
     CREATE_USER_FAILED,
     CREATE_USER_SUCCESS,
@@ -125,7 +129,7 @@ export function deleteUserFailed(error) {
 
 export function openDeleteModal(id){
     return{
-        typr: OPEN_DELETE_MODAL,
+        type: OPEN_DELETE_MODAL,
         id
     }
 }
@@ -181,6 +185,30 @@ export function searchUserSuccess(data) { //new code 03/01/19
 export function searchUserFailed(err) { //new code 03/01/19
     return{
         type: SEARCH_USER_FAILED,
+        err
+    }
+}
+
+
+export function filterItems(name, value) { //new code 03/05/19
+    return {
+        type: FILTER_ITEMS,
+        name,
+        value
+    }
+}
+
+export function filterItemsSuccess(data, filter) {//new code 03/05/19
+    return{
+        type: FILTER_ITEMS_SUCCESS,
+        data,
+        filter
+    }
+}
+
+export function filterItemsFailed(err) {//new code 03/05/19
+    return{
+        type: FILTER_ITEMS_FAILED,
         err
     }
 }

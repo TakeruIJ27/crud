@@ -1,8 +1,12 @@
 import {
     takeLatest,
     put,
-    call
+    call,
+    all,
+    select
 } from 'redux-saga/effects';
+
+import qs from 'query-string';
 
 import {Toast} from '../../../components/Base';
 import apiCall from '../../../utils/ApiService';
@@ -14,7 +18,8 @@ import {
     EDIT_USER,
     DELETE_USER,
     CREATE_USER,
-    SEARCH_USER
+    SEARCH_USER,
+    FILTER_ITEMS
 
 } from './constants';
 
@@ -31,7 +36,9 @@ import {
     createUserSuccess,
     createUserFailed,
     searchUserSuccess,
-    searchUserFailed
+    searchUserFailed,
+    filterItemsSuccess,
+    filterItemsFailed
 
 } from './actions';
 
@@ -103,6 +110,25 @@ function* searchUserWorker(action){
     }
 }
 
+function* filterItemsWorker(action) { //new code 03/05/19
+    try{
+        const {name, value} = action; //destructure
+        const filters = yield select(({users}) => {// select is like mapStateToProps
+            return{
+                ...users.filters, //spread - reuse or spread yung laman ng object
+                [name]: value //computed key
+            }
+        });
+
+        const stringifiedFilters = qs.stringify(filters); //object to url = stringify, from url to object = parse
+        const response = yield call(apiCall, "GET", `/users?${stringifiedFilters}`); //data
+
+        yield put(filterItemsSuccess(response, filters));
+    }catch(err){
+        yield put(filterItemsFailed(err));
+    }
+}
+
  function* usersWatcher(){
     yield takeLatest(FETCH_USERS, fetchUsersWorker);
     yield takeLatest(FETCH_ONE, fetchOneWorker);
@@ -110,5 +136,6 @@ function* searchUserWorker(action){
     yield takeLatest(DELETE_USER, deleteUserWorker);
     yield takeLatest(CREATE_USER, createUserWorker);
     yield takeLatest(SEARCH_USER, searchUserWorker);
+    yield takeLatest(FILTER_ITEMS, filterItemsWorker);
 }
  export default usersWatcher;

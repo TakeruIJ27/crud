@@ -15,6 +15,10 @@ import {
     OPEN_DELETE_MODAL,
     CLOSE_DELETE_MODAL,
 
+
+    FILTER_ITEMS_SUCCESS,
+    FILTER_ITEMS_FAILED,
+
     CREATE_USER_FAILED,
     CREATE_USER_SUCCESS,
 
@@ -38,7 +42,9 @@ const initState={ //new code
     toDelete:{
         id:'',
         isModalOpen:false
-    }
+    },
+    error: null,
+    filters: {}, //store
 }
 
 
@@ -145,6 +151,19 @@ function users(state = initState, action) {
                 return{
                     ...state,
                     error: action.err
+                }
+
+            case FILTER_ITEMS_SUCCESS:
+                return{
+                    ...state,
+                    data: action.data,
+                    filters: action.filter
+                }
+
+            case FILTER_ITEMS_FAILED:
+                return{
+                    ...state,
+                    error: action.error
                 }
 
             default:

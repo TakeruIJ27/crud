@@ -22,6 +22,10 @@ export const DELETE_USER_FAILED = 'users/DELETE_USER_FAILED';
 export const OPEN_DELETE_MODAL = 'users/OPEN_DELETE_MODAL'; //new code 02/28/19
 export const CLOSE_DELETE_MODAL = 'users/CLOSE_DELETE_MODAL'; //new code 02/28/19
 
+export const FILTER_ITEMS = 'users/FILTER_ITEMS';
+export const FILTER_ITEMS_SUCCESS = 'users/FILTER_ITEMS_SUCCESS';
+export const FILTER_ITEMS_FAILED = 'users/FILTER_ITEMS_FAILED';
+
 
 export const CREATE_USER = 'users/CREATE_USER';
 export const CREATE_USER_SUCCESS = 'users/CREATE_USER_SUCCESS';

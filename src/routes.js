@@ -46,6 +46,15 @@ const routes = [
       formState: 'view',
     }
   },
+  {
+    path: '/users/filter', //new code
+    exact: true,
+    component: Loader(import('./containers/Pages/users/filter')),
+    props: {
+      name: 'Filter Form',
+      formState: 'filtering',
+    }
+  },
 
 ];
 

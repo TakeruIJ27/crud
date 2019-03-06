@@ -23,14 +23,8 @@ class App extends React.Component {
     const { isLogin } = this.props;
 
     return (
-      <Switch>
-        {!isLogin && <Route exact path="/login" component={Login} />}
-        <PrivateRoute
-          component={DefaultLayout}
-          isUnlock={isLogin}
-          redirectTo="/login"
-          path="/"
-        />
+      <Switch>      
+        <Route component = { DefaultLayout } path='/' /> 
       </Switch>
     );
   }
